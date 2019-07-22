@@ -1,0 +1,271 @@
+﻿@font-face{
+	font-family:"base_font";
+	src:url("../Font/3Dumb.woff");
+}
+
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	perspective:1000px;
+	background-image: url('../images/moyou.png');
+}
+div#wrap{
+	overflow-x:hidden;
+	min-width:260px;
+}
+header{
+	width:100vw;
+	margin-top:5%;
+}
+h1{
+	text-align:center;
+	font-family:base_font;
+	text-decoration:none;
+	font-size:45px;
+}
+a:link { 
+	color : #000000; 
+}
+a:visited {
+	color : #000000; 
+}
+nav {
+	position:relative;
+	width:100%;
+	max-width:680px;
+	left:50%;
+	transform:translate(-50%);
+	margin:30px 0px 100px 0px;
+
+}
+nav ul{
+	list-style-type:none;
+	width:100%;
+}
+nav ul li{
+	float:left;
+	width:23%;
+	margin:0px 1%;
+}
+nav ul li a{
+	display:block;
+	width:100%;
+	font-size:calc(12px + 1vw);
+	text-decoration:none;
+	color:#000000;
+	text-align:center;
+	line-height:1.0em;
+	transition:all 0.5s ease 0s;
+}
+nav ul li a:hover{
+	text-shadow:3px 3px 5px #87c8fe,
+			-3px 3px 5px #87c8fe,
+			-3px -3px 5px #87c8fe,
+			3px -3px 5px #87c8fe;
+}
+
+main{
+	width:100vw;
+	max-width:700px;
+	padding:3% 0%;
+	margin:0 auto;
+	background-color:#ceecf5;/*c1ebf5;*/
+	/*transform:rotateX(-90deg);*/
+	/*opacity:0;*/
+	
+
+	/*animation:starter 2.3s ease 0s forwards normal;*/
+	/*animation:starter 0s ease 0s forwards normal;*/
+}
+/*
+@keyframes starter{
+	0%{
+		transform:rotateX(-90deg);
+		opacity:0;
+	}
+
+	100%{
+		transform:rotateX(360deg);
+		opacity:1;
+	}
+}*/
+main h2:nth-child(1){
+	margin-top:0; 
+}
+
+main h2{
+	position:relative;
+	left:50%;
+	transform:translate(-50%);
+	text-align:center;
+	font-size:40px;
+	margin-top:5%;
+	padding:2%;
+	border:2px solid #000000;
+	width:50%;
+}
+main h3{
+	width:160px;
+	/*padding-left:30px;
+	padding-right:30px;*/
+	margin:0px auto;
+	font-size:30px;
+}
+main h3 img{
+	width:30px;
+	height:30px;
+	margin-right:5px;
+	margin-left:5px;
+	animation:spanner 2s linear infinite;
+}
+@keyframes spanner{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}	
+}
+main p{
+	text-align:center;
+	font-size:20px;
+}
+
+main ul#history{
+	position:relative;
+	width:70%;
+	left:50%;
+	transform:translate(-50%);
+	list-style-type:none;
+}
+main ul#history li{
+	font-size:15px;
+	padding-left:20px;
+	background-repeat:repeat-y;
+}
+main ul#history li.date{
+	background-image:url("../images/line_middle.png");
+	background-position:0px 42px;
+	text-shadow:1px 1px 1px #808080;
+	font-weight:bolder;
+}
+main ul#history li.event{
+	background-image:url("../images/line.png");
+}
+main ul#history li:nth-child(1){
+	background-image:url("../images/line_start.png");
+	background-position:0px 8px;
+}
+main ul#history li:nth-last-child(2){
+	background-image:url("../images/line_end.png");
+	background-position:0px -42px;
+}
+main div#profile span.item{
+	font-size:40px;
+	font-weight:600;
+}
+ /*=== 画像の表示エリア ================================= */
+.slide {
+  position   : relative;
+  overflow   : hidden;
+                    /* 画像のサイズに合わせて変更ください */
+  width      : 300px;
+  height     : 300px;
+  margin     : auto;    
+  background : #ceecf5;/*#c1ebf5;*/
+}
+ 
+ /*=== 画像の設定 ======================================= */
+.slide img {
+  display    : block;
+  position   : absolute;
+  /* 画像のサイズを表示エリアに合せる */
+  width      : inherit;
+  height     : inherit;
+  left       : 100%;
+  animation  : slideAnime 20s ease infinite;
+}
+ 
+ /*=== スライドのアニメーションを段差で開始する ========= */
+.slide img:nth-of-type(1) { animation-delay: 0s }
+.slide img:nth-of-type(2) { animation-delay: 5s }
+.slide img:nth-of-type(3) { animation-delay: 10s }
+.slide img:nth-of-type(4) { animation-delay: 15s }
+ 
+ /*=== スライドのアニメーション ========================= */
+@keyframes slideAnime{
+   0% { left: 100%  }
+   4% { left: 0     }
+  21% { left: 0     }
+  25% { left: -100% }
+ 100% { left: -100% }
+}
+main div#contact{
+	position:relative;
+	width:70%;
+	left:50%;
+	transform:translate(-50%);
+	overflow:auto;
+	margin:3% 0;
+	text-align:center;
+}
+main div#contact a{
+	display:block;
+	width:23%;
+	max-width:100px;
+	max-height:100px;
+	background-size:100%;
+	float:left;
+	margin:0 1%;
+	background-repeat:no-repeat;
+}
+main div#contact a:before{
+	display:block;
+	content:"";
+	padding-top:100%;
+}
+
+main div#contact a:nth-child(1){
+	background-image:url("../images/Twitter.jpg");
+}
+main div#contact a:nth-child(2){
+	background-image:url("../images/Twitter_sub.jpg");
+}
+main div#contact a:nth-child(3){
+	background-image:url("../images/github.png");
+}
+main div#contact a:nth-child(4){
+	background-image:url("../images/gmail.png");
+}
+main div.list{
+	text-align:center;
+}
+@media screen and (max-width:480px){
+	main div#output_list div#hardware{
+		width:100%;
+		float:none;
+	}
+	main div#output_list div#software{
+		width:100%;
+		float:none;
+	}
+}
+.centering_parent {
+      padding: 20px;             /* 余白指定 */
+   /* background-color:  #ddd; */   /* 背景色指定 */
+   /*  height: 800px;     */         /* 高さ指定 */
+}
+ 
+.centering_item {
+ /*  background-color: #03A9F4;*/  /* 背景色指定 */
+     width: 400px;                 /* 幅指定 */
+ /*  height: 90px;*/               /* 高さ指定 */
+     margin:  0 auto;              /* 中央寄せ */
+}
+
+footer{
+	display:block;
+	clear:both;
+	width:100%;
+	text-align:center;
+}

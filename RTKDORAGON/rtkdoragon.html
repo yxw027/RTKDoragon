@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>RTKDoragon.</title>
+    </head>
+    <body>
+	<div style="border: 2px ridge #000; padding: 10px;">
+		<p><a href="index.html" style="font-size: 2.0em;">RTKDoragon.</a><br>
+		   <em style="color: #000000;background-color: #b1f9f6">システム開発の万事屋(法人ではないです)</em>
+		</p>  
+	</div>
+	<hr>
+	<h2>RTKDoragon.<br/>普及型高精度GPSプラットフォーム</h2>
+	<p>
+	<div style="padding: 30px 30px 0 30px; margin-bottom: 10px; border: 5px double " >
+			<div style="background-color:#f4f9fc; font-size: 24px; margin-bottom: 25px; text-align: center;" >
+				<em>Index</em>
+			</div>
+			<ol>
+				<li><a href="#motive">開発の背景と動機</a></li>
+				<li><a href="#example">高精度GPSプラットフォームの活用例(屋外のみ)</a></li>
+				<li><a href="#positioning">ローカルエリアRTKの位置づけ</a></li>
+				<li><a href="#comparison">GPS測位方式ごとの精度と価格比較</a></li>
+				<li><a href="#SYS_1">[SYS]RTKDoragon.(ver.1)のシステム構成</a></li>
+				<li><a href="#HW_1">[HW]RTKDoragon.(ver.1)</a></li>
+				<li><a href="#HW_2">[HW]RTKDoragon.(ver.2)</a></li>
+				<li><a href="#SW_1">[SW]基準局設定・移動局ビュワWEBアプリケーション(ver.1)</a></li>
+				<li><a href="#environment">使用言語・開発環境</a></li>
+				<li><a href="#verification">検証結果</a></li>
+				<li><a href="#invention">工夫した点</a></li>
+				<li><a href="#hardship">苦労した点</a></li>
+				<li><a href="#outlook">今後の課題</a></li>
+			</ol>
+		</div>
+	<h3 id="motive><span style="border-bottom: solid 5px red;">開発の背景と動機</span></h3>
+	<p>
+	これまで、私は、安価に数センチ精度のGPSを利用できる仕組みの構築を行ってきた。</br>以降、開発の背景と動機を紹介する。<br>
+	近年、GPSの中で数センチの高精度測位が可能な「みちびき(単独搬送波位相測位）」について耳にする。しかし、現状は運用としての一般化レベルまで達していない。<br/>
+	一方、同様に数センチの精度が確保可能な「ローカル・エリアRTK」というものがある。
+	<br/>これもまた、測量士や専門家以外の一般人が利用するには構築の複雑で、機器が高価という課題を残している。<br/>
+	私が開発に携わった自動車運転評価システムのGPSに関して「ローカル・エリアRTK」は前述の問題と、仕組みを確立するのに十分な時間を要するため導入されなかった。<br/>
+	この仕組みはスマホ等に内蔵される数メートルレベルのGPSと比較して、数センチの水平精度測位ができるため、精度を要求する事例として産業界、研究等の活用が期待できる。<br/>
+	そこで、一般ユーザも安価で利用できる仕組み確立することに意義を感じ、休日や平日の退勤後の時間を利用して継続的に開発活動を行っている。<br/>
+	</p>
+	<h3 id="example"><span style="border-bottom: solid 5px red;">高精度GPSプラットフォームの活用例(屋外のみ)</span></h3>
+	<h4>建設・土木</h4>
+	<ul>
+  		<li>重機の無人運転</li>
+  		<li>重機に取り付けて施工管理</li>
+		<p>※人が立ち入れない場所(崩落地、高濃度放射線区域)など</p>
+	</ul>
+	<h4>農業</h4>
+	<ul>
+  		<li>農作物の搬送</li>
+  		<li>農作物の収穫</li>
+	</ul>
+	<h4>畜産</h4>
+	<ul>
+  		<li>放牧牛など家畜の生態管理</li>
+	</ul>
+	<h4>自動車</h4>
+	<ul>
+  		<li>自動運転</li>
+  		<li>運転軌跡の可視化・分析</li>
+	</ul>
+	<h4>気象学</h4>
+	<ul>
+  		<li>GPSデータを用いた集中豪雨の予測</li>
+	</ul>
+	<h4>娯楽</h4>
+	<ul>
+  		<li>ゲーム等で利用できるUIデバイス</li>
+  		<li>GPS人力アート</li>
+	</ul>
+	<h4>その他</h4>
+	<ul>
+  		<li>災害現場などでの無人制御</li>
+		<li>寒冷地域の自動除雪</li>
+	</ul>
+	<h3 id="positioning"><span style="border-bottom: solid 5px red;">ローカルエリアRTKの位置づけ</span></h3>
+	<figure>
+	<img border="1" src="images/RTK.png" width="1051" height="658" alt="RTK"> 
+	<figcaption>ローカルエリアRTKの位置づけ</figcaption>
+	</figure> 
+	<h3 id="comparison"><span style="border-bottom: solid 5px red;">GPS測位方式ごとの精度と価格比較</span></h3>
+	<table border="2">
+	<tbody>
+		<tr>
+			<th>測位方式</th>
+			<th>単独測位</th>
+			<th>D-GPS</th>
+			<th>VRS-RTK</th>
+			<th>ローカルエリアRTK</th>
+		</tr>
+		<tr>
+			<th>型番</th>
+			<td>M10478-A2</br>Adafruit Ultimate GPS</td>
+			<td>VLX-200</td>
+			<td>A325</td>
+			<td>Qwiic ZED-F9P搭載<br/>GPS-RTK2モジュール</td>
+		</tr>
+		<tr>
+			<th>価格</th>
+			<td>数千円</td>
+			<td>約25万円</td>
+			<td>約100万円<br/>+<br/>ランニングコスト</td>
+			<td>基準局＋移動局<br/>約6万円(2台)<br>ランニングコスト0円</td>
+		</tr>
+		<tr>
+			<th>水平精度</th>
+			<td>数m～数十ｍ</td>
+			<td>約60cm以内</td>
+			<td>約1～2cm</td>
+			<td>約1～2cm</td>
+		</tr>
+	</tbody>
+	</table>
+	<h3 id="SYS_1"><span style="border-bottom: solid 5px red;">[SYS]RTKDoragon.(ver.1)のシステム構成</span></h3>
+	<figure>
+	<img border="1" src="images/rtkdoragon(ver1_diagram).jpg" width="1101" height="827" alt="rtkdoragon(ver1_diagram)"> 
+	<figcaption>RTKDoragon.システム構成図(ver.1)</figcaption>
+	</figure> 
+	<h3 id="HW_1"><span style="border-bottom: solid 5px red;">[HW]RTKDoragon.(ver.1)</span></h3>
+	<figure>
+	<img border="1" src="images/rtkdoragon(ver1_hardware).jpg" width="800" height="800" alt="rtkdoragon(ver2_hardware)"> 
+	<figcaption>RTKDoragon.(ver.1)</figcaption>
+	</figure> 
+	<h3 id="HW_2"><span style="border-bottom: solid 5px red;">[HW]RTKDoragon.(ver.2)</span></h3>
+	<figure>
+	<img border="1" src="images/rtkdoragon(ver2_hardware).png" width="820" height="590" alt="rtkdoragon(ver2_hardware)"> 
+	<figcaption>RTKDoragon.(ver.2)</figcaption>
+	</figure> 
+	<h3 id="SW_1"><span style="border-bottom: solid 5px red;">[SW]基準局設定・移動局ビュワWEBアプリケーション(ver.1)</span></h3>
+	<figure>
+	<img border="1" src="images/rtkdoragon(ver1_software).png" width="1200" height="715" alt="rtkdoragon(ver1_software)"> 
+	<figcaption>基準局設定・移動局ビュワ(ver.1)</figcaption>
+	</figure> 
+	<h3 id="environment"><span style="border-bottom: solid 5px red;">使用言語・開発環境</span></h3>
+	<p>
+	Language【C++/HTML/CSS/JavaScript】 DevelopmentEnvironment【ArduinoIDE】
+	</p>
+	<h3 id="verification"><span style="border-bottom: solid 5px red;">検証結果</span></h3>
+	<p>準備中</p>
+	<h3 id="invention"><span style="border-bottom: solid 5px red;">工夫した点</span></h3>
+	<h4>ハードウェア</h4>
+	<ul>
+  		<li>基準局と移動局を同等の基板で設計</li>
+  		<li>一般的な既存製品は補正データ(RTCM)の利用に別途通信回線を利用するが、</br>
+		RTKDORAGONは自作の基準局基板にある長距離無線マイコンで伝送するため通信費用が不要<br/>
+		→高精度GNSS補正情報配信サービス利用料:約20000円/ヵ月<br/>
+		→RTKDoragon:0円/ヵ月
+		</li>
+	</ul>
+	<h4>ソフトウェア</h4>
+	<ul>
+  		<li>GPS設定を有線接続したPCから行うのではなく、ESPマイコンのWI-FI機能を使った<br/>
+		自作ファームウェアにより、ブラウザベースの操作を可能にした</br>
+		→手持ちのスマホで本体にアクセスポイント接続して基準局と移動局の設定を気軽にできる
+		</li>
+		</ul>
+	<h3 id="hardship"><span style="border-bottom: solid 5px red;">苦労した点</span></h3>
+	<h4>ハードウェア</h4>
+	<ul>
+  		<li>初めて個人で回路設計を行い基板設計用CAD導入したが、<br/>
+		   操作の仕方や、基板設計のルールを習得するまでに時間がかかった</li>
+		<li>今回は、汎用性という観点で基板設計したため、最適な部品の選定、<br/>
+		調達をするのに、多くの知識を要した	
+		</li>
+	</ul>
+	<h4>ソフトウェア</h4>
+	<ul>
+  		<li>GPSモジュールからバイナリ(UBX)観測データから位置情報を取得する際に、<br/>
+		リトルエンディアンとビッグエンディアンの違いに気づくまでに苦労した<br>
+		→GPSプロトコルシートを読むことで、気づき、とても良い勉強になった
+		</li>
+	</ul>
+	<h3 id="outlook"><span style="border-bottom: solid 5px red;">今後の課題</span></h3>
+	<h4>ハードウェア</h4>
+	<ul>
+  		<li>現在、GPSや無線マイコンなどはDIP化部品のため、普及させるには現実的な価格で<br>
+		ないため、表面実装部品で回路設計することにより、さらに安価に実現させる</li>
+  
+	</ul>
+	<h4>ソフトウェア</h4>
+	<ul>
+  		<li>
+		GPSデータ(NMEAやUBX等)をブラウザからダウンロードできる実装を行い、後解析に利用できるようにする
+		</li>
+		<li>
+		現在はウェイポイント機能において、矢印方位や距離の表示、GPSステータス表示だけのため、<br/>
+		3次元軌跡表示する実装を行い、視覚的表示によるユーザビリティの向上させる
+		</li>
+		<li>
+		APモードは実現しているが、追加機能として、外部サーバーにアップロード機能を用意して<br/>
+		時系列データ記録・解析を可能にさせる
+		</li>
+	</ul>
+		<hr>
+	<p>連絡先:mail:- /
+		<a href="https://twitter.com/rtkdoragon">Twitter</a>
+	</p>
+    </body>
+</html>

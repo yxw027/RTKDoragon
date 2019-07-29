@@ -108,6 +108,12 @@ main h2{
 	border:2px solid #000000;
 	width:50%;
 }
+@media (max-width:558px) { 
+main h2 {
+  font-size: 32px;
+  width: 70%;
+}
+}
 main h3{
 	width:160px;
 	/*padding-left:30px;
